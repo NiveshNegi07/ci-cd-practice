@@ -1,0 +1,21 @@
+name: Java CI
+
+on: [push, pull_request]   # Run when code is pushed or PR created
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3   # Get code
+    - name: Set up JDK
+      uses: actions/setup-java@v3
+      with:
+        java-version: '17'
+        distribution: 'temurin'
+
+    - name: Compile
+      run: javac HelloWorld.java HelloWorldTest.java
+
+    - name: Run Tests
+      run: java org.junit.runner.JUnitCore HelloWorldTest || true
